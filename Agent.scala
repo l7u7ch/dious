@@ -1,4 +1,4 @@
-package com.github.l7u7ch.studious-disco
+package com.github.l7u7ch.xxx
 
 import sttp.client4.quick.*
 import upickle.default.*
