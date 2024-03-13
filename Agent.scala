@@ -1,4 +1,4 @@
-package com.github.l7u7ch.xxx
+package com.github.l7u7ch.dious
 
 import sttp.client4.quick.*
 import upickle.default.*
