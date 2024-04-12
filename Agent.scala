@@ -1,5 +1,9 @@
 package com.github.l7u7ch.dious
 
+import io.circe.*
+import io.circe.generic.auto.*
+import io.circe.parser.*
+import io.circe.syntax.*
 import sttp.client4.quick.*
 import upickle.default.*
 
@@ -9,23 +13,28 @@ case class Agent(val service: String) {
   var did: String = ""
 
   // https://www.docs.bsky.app/docs/api/com-atproto-server-create-session
-  def createSession(identifier: String, password: String): String = {
-    val map: Map[String, String] =
-      Map("identifier" -> identifier, "password" -> password)
+  def createSession(identifier: String, password: String) = {
+    case class Payload(
+        identifier: String,
+        password: String
+    )
 
-    val json = upickle.default.write(map)
+    val payload: String =
+      Payload(identifier = identifier, password = password).asJson.toString
 
     val response: String = quickRequest
       .post(uri"${service}/xrpc/com.atproto.server.createSession")
       .header("Content-Type", "application/json")
       .header("Accept", "application/json")
-      .body(json)
+      .body(payload)
       .send()
       .body
 
-    accessJwt = ujson.read(response)("accessJwt").str
-    handle = ujson.read(response)("handle").str
-    did = ujson.read(response)("did").str
+    val cursor: HCursor = parse(response).getOrElse(Json.Null).hcursor
+
+    accessJwt = cursor.get[String]("accessJwt").getOrElse("")
+    handle = cursor.get[String]("handle").getOrElse("")
+    did = cursor.get[String]("did").getOrElse("")
 
     response
   }
