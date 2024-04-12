@@ -167,4 +167,20 @@ case class Agent(private val service: String) {
       .send()
       .body
   }
+
+  // https://docs.bsky.app/docs/api/com-atproto-repo-create-record
+  def getRecord(
+      collection: String = "app.bsky.feed.post",
+      rkey: String
+  ): String = {
+    val response: String = quickRequest
+      .get(
+        uri"${service}/xrpc/com.atproto.repo.getRecord?repo=${handle}&collection=${collection}&rkey=${rkey}"
+      )
+      .header("Accept", "application/json")
+      .send()
+      .body
+
+    response
+  }
 }
