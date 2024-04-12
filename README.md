@@ -1,28 +1,85 @@
+Bluesky が提供している API を Scala で扱うライブラリ
+
+JitPack で公開しています
+
+## 1. インストール
+
+### 1.1. Gradle
+
+```groovy
+// build.gradle
+dependencyResolutionManagement {
+  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+  repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+  }
+}
+
+dependencies {
+  implementation 'com.github.l7u7ch:dious:main-SNAPSHOT'
+}
+```
+
+### 1.2. Maven
+
+```xml
+<!-- pom.xml -->
+<repositories>
+  <repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+  </repository>
+</repositories>
+
+<dependency>
+  <groupId>com.github.l7u7ch</groupId>
+  <artifactId>dious</artifactId>
+  <version>main-SNAPSHOT</version>
+</dependency>
+```
+
+### 1.3. sbt
+
 ```sbt
-ThisBuild / scalaVersion := "3.4.0"
+// build.sbt
 resolvers += "jitpack" at "https://jitpack.io"
 libraryDependencies += "com.github.l7u7ch" % "dious" % "main-SNAPSHOT"
 ```
 
+## 2. サンプルコード
+
 ```scala
 import com.github.l7u7ch.dious.*
 
-@main def hello(): Unit = {
+@main def Main(): Unit = {
   val agent = Agent(service = "https://bsky.social/")
 
   agent.createSession(
     identifier = "<USER_ID>",
     password = "<APP_PASSWORD>"
   )
+
+  agent.createRecord("Hello, World!!")
 }
 ```
 
+## 3. 実装メソッド
+
 ```scala
 def createSession(identifier: String, password: String): String
+
 def createRecord(msg: String): String
-def getAuthorFeed(limit: Int = 50, cursor: String = ""): String
+
 def deleteRecord(rkey: String): String
+
 def deleteRepost(rkey: String): String
+
 def deleteLike(rkey: String): String
-def getActorLikes(cursor: String = ""): String
+
+def getAuthorFeed(limit: Int = 50, cursor: String = ""): String
+
+def getActorLikes(limit: Int = 50, cursor: String = ""): String
+
+def getRecord(collection: String = "app.bsky.feed.post", rkey: String): String
 ```
