@@ -100,7 +100,7 @@ case class Agent(private val service: String) {
       .body
   }
 
-  //
+  // https://www.docs.bsky.app/docs/api/com-atproto-repo-delete-record
   def deleteRepost(rkey: String): String = {
     val map: Map[String, String] =
       Map(
@@ -120,7 +120,7 @@ case class Agent(private val service: String) {
       .body
   }
 
-  //
+  // https://www.docs.bsky.app/docs/api/com-atproto-repo-delete-record
   def deleteLike(rkey: String): String = {
     val map: Map[String, String] =
       Map(
