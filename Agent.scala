@@ -7,10 +7,10 @@ import io.circe.syntax.*
 import sttp.client4.quick.*
 import upickle.default.*
 
-case class Agent(val service: String) {
-  var accessJwt: String = ""
-  var handle: String = ""
-  var did: String = ""
+case class Agent(private val service: String) {
+  private var accessJwt: String = ""
+  private var handle: String = ""
+  private var did: String = ""
 
   // https://www.docs.bsky.app/docs/api/com-atproto-server-create-session
   def createSession(identifier: String, password: String) = {
