@@ -13,7 +13,7 @@ case class Agent(private val service: String) {
   private var did: String = ""
 
   // https://www.docs.bsky.app/docs/api/com-atproto-server-create-session
-  def createSession(identifier: String, password: String) = {
+  def createSession(identifier: String, password: String): String = {
     case class Payload(
         identifier: String,
         password: String
