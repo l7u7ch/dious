@@ -47,9 +47,9 @@ case class Agent(private val service: String) {
     )
 
     val payload: String = Payload(
-      handle,
-      "app.bsky.feed.post",
-      Map(
+      repo = handle,
+      collection = "app.bsky.feed.post",
+      record = Map(
         "text" -> msg,
         "createdAt" -> java.time.Instant.now().toString
       )
