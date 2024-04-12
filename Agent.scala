@@ -68,18 +68,6 @@ case class Agent(private val service: String) {
     response
   }
 
-  // https://www.docs.bsky.app/docs/api/app-bsky-feed-get-author-feed
-  def getAuthorFeed(limit: Int = 50, cursor: String = ""): String = {
-    quickRequest
-      .get(
-        uri"${service}/xrpc/app.bsky.feed.getAuthorFeed?actor=${handle}&limit=${limit}&cursor=${cursor}"
-      )
-      .header("Accept", "application/json")
-      .header("Authorization", "Bearer " + accessJwt)
-      .send()
-      .body
-  }
-
   // https://www.docs.bsky.app/docs/api/com-atproto-repo-delete-record
   def deleteRecord(rkey: String): String = {
     val map: Map[String, String] =
@@ -138,6 +126,20 @@ case class Agent(private val service: String) {
       .body(json)
       .send()
       .body
+  }
+
+  // https://www.docs.bsky.app/docs/api/app-bsky-feed-get-author-feed
+  def getAuthorFeed(limit: Int = 50, cursor: String = ""): String = {
+    val response: String = quickRequest
+      .get(
+        uri"${service}/xrpc/app.bsky.feed.getAuthorFeed?actor=${handle}&limit=${limit}&cursor=${cursor}"
+      )
+      .header("Accept", "application/json")
+      .header("Authorization", "Bearer " + accessJwt)
+      .send()
+      .body
+
+    response
   }
 
   // https://docs.bsky.app/docs/api/app-bsky-feed-get-actor-likes
