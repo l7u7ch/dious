@@ -41,31 +41,31 @@ case class Agent(private val service: String) {
 
   // https://www.docs.bsky.app/docs/api/com-atproto-repo-create-record
   def createRecord(msg: String): String = {
-    case class PetOwner(
+    case class Payload(
         repo: String,
         collection: String,
         record: Map[String, String]
-    ) derives ReadWriter
+    )
 
-    val petOwner = PetOwner(
+    val payload: String = Payload(
       handle,
       "app.bsky.feed.post",
       Map(
         "text" -> msg,
         "createdAt" -> java.time.Instant.now().toString
       )
-    )
+    ).asJson.toString
 
-    val json: String = write(petOwner)
-
-    quickRequest
+    val response: String = quickRequest
       .post(uri"${service}/xrpc/com.atproto.repo.createRecord")
       .header("Content-Type", "application/json")
       .header("Accept", "application/json")
       .header("Authorization", "Bearer " + accessJwt)
-      .body(json)
+      .body(payload)
       .send()
       .body
+
+    response
   }
 
   // https://www.docs.bsky.app/docs/api/app-bsky-feed-get-author-feed
