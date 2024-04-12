@@ -5,7 +5,8 @@ import io.circe.generic.auto.*
 import io.circe.parser.*
 import io.circe.syntax.*
 import sttp.client4.quick.*
-import upickle.default.*
+
+// import upickle.default.*
 
 case class Agent(private val service: String) {
   private var accessJwt: String = ""

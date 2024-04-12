@@ -1,5 +1,4 @@
 ThisBuild / scalaVersion := "3.3.3"
-libraryDependencies += "com.lihaoyi" %% "upickle" % "3.1.0"
 libraryDependencies += "com.softwaremill.sttp.client4" %% "core" % "4.0.0-M1"
 libraryDependencies += "io.circe" %% "circe-core" % "0.14.1"
 libraryDependencies += "io.circe" %% "circe-generic" % "0.14.1"
