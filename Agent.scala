@@ -95,22 +95,27 @@ case class Agent(private val service: String) {
 
   // https://www.docs.bsky.app/docs/api/com-atproto-repo-delete-record
   def deleteRepost(rkey: String): String = {
-    val map: Map[String, String] =
-      Map(
-        "repo" -> handle,
-        "collection" -> "app.bsky.feed.repost",
-        "rkey" -> rkey
-      )
+    case class Payload(
+        repo: String,
+        collection: String,
+        rkey: String
+    )
 
-    val json = upickle.default.write(map)
+    val payload: String = Payload(
+      repo = handle,
+      collection = "app.bsky.feed.repost",
+      rkey = rkey
+    ).asJson.toString
 
-    quickRequest
+    val response: String = quickRequest
       .post(uri"${service}/xrpc/com.atproto.repo.deleteRecord")
       .header("Content-Type", "application/json")
       .header("Authorization", "Bearer " + accessJwt)
-      .body(json)
+      .body(payload)
       .send()
       .body
+
+    response
   }
 
   // https://www.docs.bsky.app/docs/api/com-atproto-repo-delete-record
