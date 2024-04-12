@@ -157,10 +157,10 @@ case class Agent(private val service: String) {
   }
 
   // https://docs.bsky.app/docs/api/app-bsky-feed-get-actor-likes
-  def getActorLikes(cursor: String = ""): String = {
+  def getActorLikes(limit: Int = 50, cursor: String = ""): String = {
     quickRequest
       .get(
-        uri"${service}/xrpc/app.bsky.feed.getActorLikes?actor=${handle}&cursor=${cursor}"
+        uri"${service}/xrpc/app.bsky.feed.getActorLikes?actor=${handle}&limit=${limit}&cursor=${cursor}"
       )
       .header("Content-Type", "application/json")
       .header("Authorization", "Bearer " + accessJwt)
