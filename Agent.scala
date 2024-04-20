@@ -183,4 +183,15 @@ case class Agent(private val service: String) {
 
     response
   }
+
+  // https://docs.bsky.app/docs/api/com-atproto-repo-list-records
+  def listRecords(collection: String = "app.bsky.feed.post", limit: Int = 50): String = {
+    val response: String = quickRequest
+      .get(uri"${service}/xrpc/com.atproto.repo.listRecords?repo=${handle}&collection=${collection}&limit=${limit}")
+      .header("Accept", "application/json")
+      .send()
+      .body
+
+    response
+  }
 }
