@@ -47,6 +47,13 @@ resolvers += "jitpack" at "https://jitpack.io"
 libraryDependencies += "com.github.l7u7ch" % "dious" % "main-SNAPSHOT"
 ```
 
+### 1.4. Scala CLI
+
+```scala
+//> using repository "jitpack"
+//> using dep com.github.l7u7ch:dious:main-SNAPSHOT
+```
+
 ## 2. サンプルコード
 
 ```scala
