@@ -67,21 +67,18 @@ import com.github.l7u7ch.dious.*
 ## 3. 実装メソッド
 
 ```scala
+// com.atproto.server.*
 def createSession(identifier: String, password: String): String
 
+// com.atproto.repo.*
 def createRecord(msg: String): String
-
 def deleteRecord(rkey: String): String
-
-def deleteRepost(rkey: String): String
-
-def deleteLike(rkey: String): String
-
-def getAuthorFeed(limit: Int = 50, cursor: String = ""): String
-
-def getActorLikes(limit: Int = 50, cursor: String = ""): String
-
 def getRecord(collection: String = "app.bsky.feed.post", rkey: String): String
-
 def listRecords(collection: String = "app.bsky.feed.post", limit: Int = 50): String
+
+// 非推奨
+def deleteLike(rkey: String): String
+def deleteRepost(rkey: String): String
+def getActorLikes(limit: Int = 50, cursor: String = ""): String
+def getAuthorFeed(limit: Int = 50, cursor: String = ""): String
 ```
