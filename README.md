@@ -82,4 +82,6 @@ def getAuthorFeed(limit: Int = 50, cursor: String = ""): String
 def getActorLikes(limit: Int = 50, cursor: String = ""): String
 
 def getRecord(collection: String = "app.bsky.feed.post", rkey: String): String
+
+def listRecords(collection: String = "app.bsky.feed.post", limit: Int = 50): String
 ```
